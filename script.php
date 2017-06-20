@@ -1,6 +1,6 @@
 <?php
 session_start();
-$login=sha1($_POST['login']);
+$login=($_POST['login']);
 $password=sha1($_POST['password']);
 ?>
 
@@ -19,13 +19,13 @@ $password=sha1($_POST['password']);
    <div class="nav-wrapper">
      <a href="index.php" class="brand-logo"><h1>EXERCICE PHP</h1></a>
    </div>
-   <div class="nav-content">
+   <!-- <div class="nav-content">
      <ul class="tabs tabs-transparent">
        <li class="tab"><a href=""></a></li>
        <li class="tab"><a href=""></a></li>
        <li class="tab"><a href=""></a></li>
      </ul>
-   </div>
+   </div> -->
  </nav>
 </head>
 
@@ -38,18 +38,19 @@ $password=sha1($_POST['password']);
   // connection à la base de données
     include("connect.php");
 
-    $login=($_POST['login']); //déclaration des variables
-    $password=($_POST['password']);
+    // $login=($_POST['login']); //déclaration des variables
+    // $password=($_POST['password']);
     // il faut mettre les conditions et ainsi vérifier pour chaque variable
     if(isset($_POST['login']) AND isset($_POST['password']))
-
     // ici on crée une variable appelée "$req", ayant pour but de préparer une requête à l'exécution et on lui dit d'insérer la valeur des différents attributs
   {
     $req=$bdd->prepare('INSERT INTO Data (login, password)
     VALUES (?, ?)');
-    $req->execute(array ($_POST['login'],$_POST['password']));
+    $req->execute(array ($login,$password));//on appelle bien les variables au-dessus pour qu'elles s'affichent cryptées
   }
-  echo ($_POST['login']),($_POST['password']);
+  echo ($login),($password);
+
+  // header('Location: index.php');
   ?>
 
 </body>
